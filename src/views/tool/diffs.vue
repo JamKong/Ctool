@@ -27,6 +27,9 @@
                 <Button type="primary" size="small" @click="format">{{ $t('diffs_beautify') }}</Button>
             </FormItem>
             <FormItem>
+                <Checkbox v-model="current.sort">{{ $t('diffs_sort') }}</Checkbox>
+            </FormItem>
+            <FormItem>
                 <Checkbox v-model="current.collapse">{{ $t('diffs_collapse') }}</Checkbox>
             </FormItem>
         </option-block>
@@ -75,9 +78,9 @@ export default {
             this.current.language = lang;
         },
         format() {
-            try{
-                this.current.diff.original = format(this.current.diff.original,this.current.language)
-                this.current.diff.modified = format(this.current.diff.modified,this.current.language)
+            try {
+                this.current.diff.original = format(this.current.diff.original, this.current.language, false, {sort: this.current.sort})
+                this.current.diff.modified = format(this.current.diff.modified, this.current.language, false, {sort: this.current.sort})
             } catch (e) {
                 this.$Message.error(e.message)
             }
@@ -98,7 +101,8 @@ export default {
             current: {
                 diff: {original: "", modified: ""},
                 language: "text",
-                collapse: false
+                collapse: false,
+                sort: false
             }
         }
     }
