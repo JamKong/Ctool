@@ -21,6 +21,9 @@
                 </Select>
             </FormItem>
             <FormItem>
+                <Checkbox @on-change="(value)=>format(value)">格式化</Checkbox>
+            </FormItem>
+            <FormItem>
                 <Checkbox @on-change="(value)=>inline(value)">行内对比</Checkbox>
             </FormItem>
         </option-block>
@@ -76,6 +79,9 @@ export default {
         },
         inline(value){
             this.$refs.editor.inline(!value)
+        },
+        format(value){
+            this.$refs.editor.format(!!value)
         }
     },
     watch: {
